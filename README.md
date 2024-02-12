@@ -16,6 +16,15 @@ After you've installed Docker, you can run
 
 to build the docker container and start it. If errors are displayed at launch, please contact Jan.
 
+Attention! The application does not autorefresh when changing the source code. Thus, to see your changes in the browser you have to run the script again. In case you have node installed on your machine, you can add the volume
+
+```
+volumes:
+    - ./web:/app/web
+```
+
+to the frontend Dockerfile for autorefreshing.
+
 You can then access the frontend at `http://localhost:4200` and the backend at `http://localhost:1337`. 
 
 When you open the application in your browser, you will see questions that you can answer. After answering one question, the next one will pop up.

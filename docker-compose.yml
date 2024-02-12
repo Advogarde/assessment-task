@@ -19,8 +19,6 @@ services:
     build:
       context: .
       dockerfile: ./DockerfileFrontend
-    volumes:
-      - ./web:/app/web
     ports:
       - 4200:4200
     extra_hosts:
