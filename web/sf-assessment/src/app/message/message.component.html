@@ -1,12 +1,26 @@
-<div class="message-content" *ngIf="message">
+<div *ngIf="message" class="message-content">
   <p [innerHTML]="message.content?.value"></p>
 </div>
-<div class="response" *ngIf="message?.responseRequest && last">
+<div *ngIf="message?.responseRequest && last" class="response">
   <mat-form-field appearance="outline">
     <mat-label>Answer</mat-label>
-    <input matInput [formControl]="control" (keydown.enter)="sendAnswer()">
+    <input (keydown.enter)="sendAnswer()"
+           [formControl]="control"
+           [matAutocomplete]="auto"
+           matInput
+    >
+    <mat-autocomplete #auto="matAutocomplete">
+      <mat-option *ngFor="let answer of prevAnswers" [value]="answer.text">
+        {{ answer.text }}
+        <button class="delete-button" (click)="$event.stopPropagation(); deleteAnswer(answer)"
+                color="warn"
+                mat-mini-fab>
+          <mat-icon class="delete-icon">delete</mat-icon>
+        </button>
+      </mat-option>
+    </mat-autocomplete>
   </mat-form-field>
-  <button mat-raised-button color="primary" (click)="sendAnswer()">
+  <button (click)="sendAnswer()" color="primary" mat-raised-button>
     <mat-icon>send</mat-icon>
     <span>Send</span>
   </button>

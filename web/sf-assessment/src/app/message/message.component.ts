@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { ChatMessage } from '../parser/types';
+import {Answer, ChatMessage} from '../parser/types';
 import { FormControl } from '@angular/forms';
 import { ProcessParser } from '../parser/process-parser';
 
@@ -17,6 +17,7 @@ export class MessageComponent {
   @Input() parser?: ProcessParser;
 
   control = new FormControl();
+  @Input() prevAnswers!: Answer[];
 
   sendAnswer() {
     this.parser?.reply({
@@ -25,6 +26,19 @@ export class MessageComponent {
       },
       id: `${this.message?.id}_reply`
     });
+  }
+
+  deleteAnswer(answer: any) {
+    const index = this.prevAnswers.indexOf(answer);
+    if (index > -1) {
+      this.prevAnswers.splice(index, 1);
+    }
+
+    this.deleteAnswerFromBackend(answer);
+  }
+
+  deleteAnswerFromBackend(answer: any) {
+    // TODO: Implement this method to send a DELETE request to your backend
   }
 
 }

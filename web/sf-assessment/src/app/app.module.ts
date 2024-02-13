@@ -9,22 +9,24 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
+import {MatAutocompleteModule} from "@angular/material/autocomplete";
 
 @NgModule({
   declarations: [
     AppComponent,
     MessageComponent
   ],
-  imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    MatInputModule,
-    ReactiveFormsModule,
-    MatFormFieldModule,
-    MatButtonModule,
-    MatIconModule,
-    PerfectScrollbarModule
-  ],
+    imports: [
+        BrowserModule,
+        BrowserAnimationsModule,
+        MatInputModule,
+        ReactiveFormsModule,
+        MatFormFieldModule,
+        MatButtonModule,
+        MatIconModule,
+        PerfectScrollbarModule,
+        MatAutocompleteModule
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })

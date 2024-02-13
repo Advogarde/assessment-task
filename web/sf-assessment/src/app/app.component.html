@@ -10,6 +10,7 @@
       *ngFor="let message of messages; let i = index"
       [parser]="parser"
       [message]="message"
+      [prevAnswers]="prevAnswers[message.id]"
       [last]="i === messages.length - 1"
     ></app-message>
   </div>

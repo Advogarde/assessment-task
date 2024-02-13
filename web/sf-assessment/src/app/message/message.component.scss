@@ -1,7 +1,7 @@
 :host {
   display: flex;
   flex-direction: column;
-  
+
   background: white;
   border-radius: 10px;
   box-shadow: 0px 2px 4px 0px rgba(0,0,0,0.2);
@@ -47,6 +47,19 @@
 
     .mat-mdc-raised-button {
       background-color: #001b34;
+    }
+  }
+}
+
+::ng-deep .mdc-list-item__primary-text {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .delete-button {
+    .delete-icon {
+      margin-right: 0;
     }
   }
 }
