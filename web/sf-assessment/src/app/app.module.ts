@@ -10,6 +10,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
+import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import {MatAutocompleteModule} from "@angular/material/autocomplete";
         BrowserAnimationsModule,
         MatInputModule,
         ReactiveFormsModule,
+        HttpClientModule,
         MatFormFieldModule,
         MatButtonModule,
         MatIconModule,
