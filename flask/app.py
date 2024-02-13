@@ -1,3 +1,5 @@
+from enum import Enum
+
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 
@@ -6,10 +8,16 @@ CORS(app)
 
 answerId = 5
 
+
+class NodeTypes(Enum):
+    PromptNode = "PromptNode"
+    SignatureNode = "SignatureNode"
+
+
 NODES = [
     {
         "_id": "8d36a8c6-b3bc-4e97-ae5e-fe6c5ae792e5",
-        "type": "PromptNode",
+        "type": NodeTypes.PromptNode.value,
         "start": True,
         "config": {
             "text": "Das ist ein Test"
@@ -28,11 +36,11 @@ NODES = [
     },
     {
         "_id": "f4db9b1a-dce2-4060-892f-ff0b2892d730",
-        "type": "PromptNode",
+        "type": NodeTypes.PromptNode.value,
         "config": {
             "text": "Das ist ein Test 2"
         },
-        "outputs": [],
+        "outputs": ["f4db9b1a-dce2-4060-892f-ff0b2892d731"],
         "answers": [
             {
                 "id": 1,
@@ -43,6 +51,15 @@ NODES = [
                 "text": "Nein"
             }
         ],
+    },
+    {
+        "_id": "f4db9b1a-dce2-4060-892f-ff0b2892d731",
+        "type": NodeTypes.SignatureNode.value,
+        "config": {
+            "text": "Das ist ein Test 3 (signature)"
+        },
+        "outputs": [],
+        "answers": [],
     }
 ]
 

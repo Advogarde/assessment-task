@@ -1,7 +1,8 @@
-import { Component, Input } from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {Answer, ChatMessage} from '../parser/types';
-import { FormControl } from '@angular/forms';
-import { ProcessParser } from '../parser/process-parser';
+import {FormControl} from '@angular/forms';
+import {ProcessParser} from '../parser/process-parser';
+import {AnswerService} from "../services/answer.service";
 
 @Component({
   selector: 'app-message',
@@ -19,26 +20,57 @@ export class MessageComponent {
   control = new FormControl();
   @Input() prevAnswers!: Answer[];
 
+  constructor(private answerService: AnswerService) {
+
+  }
+
   sendAnswer() {
+    console.log(this.message);
     this.parser?.reply({
       content: {
         value: this.control.value
       },
       id: `${this.message?.id}_reply`
     });
+
+    this.addAnswerToBackend(this.control.value).subscribe(
+      {
+        next: (answer) => {
+          console.log('Answer added', answer);
+        },
+        error: (error) => {
+          alert('Error adding answer' + error.message);
+        }
+      }
+    );
   }
 
   deleteAnswer(answer: any) {
-    const index = this.prevAnswers.indexOf(answer);
-    if (index > -1) {
-      this.prevAnswers.splice(index, 1);
-    }
-
-    this.deleteAnswerFromBackend(answer);
+    this.deleteAnswerFromBackend(answer).subscribe(
+      {
+        next: () => {
+          // Remove answer from prevAnswers
+          const index = this.prevAnswers.indexOf(answer);
+          if (index > -1) {
+            this.prevAnswers.splice(index, 1);
+          }
+        },
+        error: (error) => {
+          alert('Error deleting answer' + error.message);
+        }
+      }
+    );
   }
 
   deleteAnswerFromBackend(answer: any) {
-    // TODO: Implement this method to send a DELETE request to your backend
+    const node_id = this.message?.associatedBlock?.id ?? '';
+
+    return this.answerService.deleteAnswer(answer, node_id)
   }
 
+  private addAnswerToBackend(answerText: string) {
+    const node_id = this.message?.associatedBlock?.id ?? '';
+
+    return this.answerService.addAnswer(answerText, node_id);
+  }
 }

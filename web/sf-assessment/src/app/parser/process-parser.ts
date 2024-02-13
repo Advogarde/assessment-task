@@ -3,7 +3,7 @@ import { NodeVisitor } from "./node-visitor";
 import { ChatMessage, ProcessNode, Thread } from "./types";
 import DataStore from "./data-store";
 import { AbstractNode } from "../node/abstract-node";
-import * as dayjs from "dayjs";
+import {nodeNames} from "../node/node-names";
 
 export function hashCode(str: string) {
   let hash = 0,
@@ -106,6 +106,8 @@ export class ProcessParser {
         id: curNode._id,
         index: this.visitor?.nodesSeen[curNode._id] ?? -1,
       };
+
+      data.id = `${nodeNames[curNode.node.constructor.name]}_${hashCode(text)}`;
     }
 
     this.newMessage(data);
