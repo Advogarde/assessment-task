@@ -3,6 +3,7 @@ import {Answer, ChatMessage} from '../parser/types';
 import {FormControl} from '@angular/forms';
 import {ProcessParser} from '../parser/process-parser';
 import {AnswerService} from "../services/answer.service";
+import {nodeNames} from "../node/node-names";
 
 @Component({
   selector: 'app-message',
@@ -11,7 +12,20 @@ import {AnswerService} from "../services/answer.service";
 })
 export class MessageComponent {
 
-  @Input() message?: ChatMessage;
+  nodeTypes = nodeNames;
+  nodeType: string = this.nodeTypes['PromptNode'];
+
+  private _message?: ChatMessage;
+
+  @Input()
+  set message(value: ChatMessage | undefined) {
+    this._message = value;
+    this.nodeType = this.getNodeType();
+  }
+
+  get message(): ChatMessage | undefined {
+    return this._message;
+  }
 
   @Input() last: boolean = false;
 
@@ -25,7 +39,6 @@ export class MessageComponent {
   }
 
   sendAnswer() {
-    console.log(this.message);
     this.parser?.reply({
       content: {
         value: this.control.value
@@ -72,5 +85,9 @@ export class MessageComponent {
     const node_id = this.message?.associatedBlock?.id ?? '';
 
     return this.answerService.addAnswer(answerText, node_id);
+  }
+
+  getNodeType(): string {
+    return this.message?.id.split('_')[0] ?? this.nodeTypes['PromptNode'];
   }
 }

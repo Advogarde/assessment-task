@@ -2,26 +2,36 @@
   <p [innerHTML]="message.content?.value"></p>
 </div>
 <div *ngIf="message?.responseRequest && last" class="response">
-  <mat-form-field appearance="outline">
-    <mat-label>Answer</mat-label>
-    <input (keydown.enter)="sendAnswer()"
-           [formControl]="control"
-           [matAutocomplete]="auto"
-           matInput
-    >
-    <mat-autocomplete #auto="matAutocomplete">
-      <mat-option *ngFor="let answer of prevAnswers" [value]="answer.text">
-        {{ answer.text }}
-        <button class="delete-button" (click)="$event.stopPropagation(); deleteAnswer(answer)"
-                color="warn"
-                mat-mini-fab>
-          <mat-icon class="delete-icon">delete</mat-icon>
-        </button>
-      </mat-option>
-    </mat-autocomplete>
-  </mat-form-field>
-  <button (click)="sendAnswer()" color="primary" mat-raised-button>
-    <mat-icon>send</mat-icon>
-    <span>Send</span>
-  </button>
+  <ng-container [ngSwitch]="nodeType">
+    <ng-container *ngSwitchCase="nodeTypes['PromptNode']">
+      <mat-form-field appearance="outline">
+        <mat-label>Answer</mat-label>
+        <input (keydown.enter)="sendAnswer()"
+               [formControl]="control"
+               [matAutocomplete]="auto"
+               matInput
+        >
+        <mat-autocomplete #auto="matAutocomplete">
+          <mat-option *ngFor="let answer of prevAnswers" [value]="answer.text">
+            {{ answer.text }}
+            <button (click)="$event.stopPropagation(); deleteAnswer(answer)" class="delete-button"
+                    color="warn"
+                    mat-mini-fab>
+              <mat-icon class="delete-icon">delete</mat-icon>
+            </button>
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+      <button (click)="sendAnswer()" color="primary" mat-raised-button>
+        <mat-icon>send</mat-icon>
+        <span>Send</span>
+      </button>
+    </ng-container>
+    <ng-container *ngSwitchCase="nodeTypes['SignatureNode']">
+<!--      TODO: Implement the Signature input component-->
+      <div>TODO: Implement the Signature input component</div>
+    </ng-container>
+  </ng-container>
+
+
 </div>
