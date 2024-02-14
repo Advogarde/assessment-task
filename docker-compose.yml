@@ -9,20 +9,40 @@ services:
     volumes:
       - ./flask:/app/flask
     ports:
-      - 1337:1337
+#  1337 is in use on my machine, so I used 5000 instead
+      - 5000:5000
     extra_hosts:
       - "host.docker.internal:host-gateway"
     restart: always
+    environment:
+      - DATABASE_URL=postgresql://ahmed:ahmed@silberfluss_assessment_db:5432/questionnaire
+    depends_on:
+        - silberfluss_assessment_db
+  silberfluss_assessment_db:
+    image: postgres:16
+    ports:
+      - 5432:5432
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_USER=ahmed
+      - POSTGRES_PASSWORD=ahmed
+      - POSTGRES_DB=questionnaire
   silberfluss_assessment_frontend:
     container_name: silberfluss_assessment_frontend
     init: true
     build:
       context: .
       dockerfile: ./DockerfileFrontend
-    volumes:
-      - ./web:/app/web
+#  the frontend dockerfile is run at the build process,
+#  but the mounting of the volume is done at the run process,
+#  so the result of "npm install" is removed, so I had to comment the mounting of the volume in the docker-compose file
+#    volumes:
+#      - ./web:/app/web
     ports:
       - 4200:4200
     extra_hosts:
       - "host.docker.internal:host-gateway"
     restart: always
+volumes:
+  postgres_data:
