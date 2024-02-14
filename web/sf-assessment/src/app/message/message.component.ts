@@ -48,7 +48,7 @@ export class MessageComponent {
       id: `${this.message?.id}_reply`
     });
 
-    this.addAnswerToBackend(this.control.value).subscribe(
+    this.addAnswerToBackend(response).subscribe(
       {
         next: (answer) => {
           console.log('Answer added', answer);

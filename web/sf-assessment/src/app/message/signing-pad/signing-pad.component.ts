@@ -1,4 +1,14 @@
-import {AfterViewInit, Component, ElementRef, EventEmitter, HostListener, Output, ViewChild} from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  EventEmitter,
+  HostListener,
+  Input,
+  Output,
+  ViewChild
+} from '@angular/core';
+import {Answer} from "../../parser/types";
 
 @Component({
   selector: 'app-signing-pad',
@@ -6,8 +16,8 @@ import {AfterViewInit, Component, ElementRef, EventEmitter, HostListener, Output
   styleUrls: ['./signing-pad.component.scss']
 })
 export class SigningPadComponent implements AfterViewInit {
-
   @ViewChild('signPad') signPad!: ElementRef<HTMLCanvasElement>;
+  @Input() prevAnswers!: Answer[];
   @Output() signatureSaved = new EventEmitter<string>();
   strokeColor = '#000';
   private signatureImg!: string;
