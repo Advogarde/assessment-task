@@ -1,0 +1,19 @@
+<canvas #signPad
+        (mousedown)="onMouseDown($event)"
+        (mousemove)="onMouseMove($event)"
+        (touchmove)="onMouseMove($event)"
+        (touchstart)="onMouseDown($event)"
+        width="400" height="100"
+>
+</canvas>
+<div class="button-container">
+  <button (click)="clearSignature()" color="warn" mat-raised-button>
+    <mat-icon>clear</mat-icon>
+    <span>clear</span>
+  </button>
+  <button (click)="saveSignature()" color="primary" mat-raised-button>
+    <mat-icon>send</mat-icon>
+    <span>Send</span>
+  </button>
+</div>
+

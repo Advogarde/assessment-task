@@ -16,11 +16,13 @@ export class MessageComponent {
   nodeType: string = this.nodeTypes['PromptNode'];
 
   private _message?: ChatMessage;
+  isSignReply!: boolean;
 
   @Input()
   set message(value: ChatMessage | undefined) {
     this._message = value;
     this.nodeType = this.getNodeType();
+    this.isSignReply = this.message?.id.split('_')[2] === 'reply' && this.nodeType === this.nodeTypes['SignatureNode'];
   }
 
   get message(): ChatMessage | undefined {
@@ -38,10 +40,10 @@ export class MessageComponent {
 
   }
 
-  sendAnswer() {
+  sendAnswer(response: string) {
     this.parser?.reply({
       content: {
-        value: this.control.value
+        value: response
       },
       id: `${this.message?.id}_reply`
     });
@@ -90,4 +92,5 @@ export class MessageComponent {
   getNodeType(): string {
     return this.message?.id.split('_')[0] ?? this.nodeTypes['PromptNode'];
   }
+
 }

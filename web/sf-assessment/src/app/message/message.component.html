@@ -1,12 +1,19 @@
 <div *ngIf="message" class="message-content">
-  <p [innerHTML]="message.content?.value"></p>
+  <p *ngIf="!isSignReply;else signReply" [innerHTML]="message.content?.value"></p>
+
+  <ng-template #signReply>
+    <div class="message-content">
+      <img [src]="message.content?.value" alt="signature">
+    </div>
+  </ng-template>
 </div>
+
 <div *ngIf="message?.responseRequest && last" class="response">
   <ng-container [ngSwitch]="nodeType">
     <ng-container *ngSwitchCase="nodeTypes['PromptNode']">
       <mat-form-field appearance="outline">
         <mat-label>Answer</mat-label>
-        <input (keydown.enter)="sendAnswer()"
+        <input (keydown.enter)="sendAnswer(control.value)"
                [formControl]="control"
                [matAutocomplete]="auto"
                matInput
@@ -22,14 +29,13 @@
           </mat-option>
         </mat-autocomplete>
       </mat-form-field>
-      <button (click)="sendAnswer()" color="primary" mat-raised-button>
+      <button (click)="sendAnswer(control.value)" color="primary" mat-raised-button>
         <mat-icon>send</mat-icon>
         <span>Send</span>
       </button>
     </ng-container>
     <ng-container *ngSwitchCase="nodeTypes['SignatureNode']">
-<!--      TODO: Implement the Signature input component-->
-      <div>TODO: Implement the Signature input component</div>
+      <app-signing-pad (signatureSaved)="sendAnswer($event)"></app-signing-pad>
     </ng-container>
   </ng-container>
 

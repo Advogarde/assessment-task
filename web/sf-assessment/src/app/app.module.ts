@@ -11,24 +11,26 @@ import { MatIconModule } from '@angular/material/icon';
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import {HttpClientModule} from "@angular/common/http";
+import { SigningPadComponent } from './message/signing-pad/signing-pad.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    MessageComponent
+    MessageComponent,
+    SigningPadComponent
   ],
-    imports: [
-        BrowserModule,
-        BrowserAnimationsModule,
-        MatInputModule,
-        ReactiveFormsModule,
-        HttpClientModule,
-        MatFormFieldModule,
-        MatButtonModule,
-        MatIconModule,
-        PerfectScrollbarModule,
-        MatAutocompleteModule
-    ],
+  imports: [
+    BrowserModule,
+    BrowserAnimationsModule,
+    MatInputModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    MatFormFieldModule,
+    MatButtonModule,
+    MatIconModule,
+    PerfectScrollbarModule,
+    MatAutocompleteModule
+  ],
   providers: [],
   bootstrap: [AppComponent]
 })
