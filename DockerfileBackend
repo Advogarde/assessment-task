@@ -7,8 +7,11 @@ WORKDIR /app/flask
 # Copy the Flask project files to the container
 COPY flask/ .
 
+ENV PYTHONUNBUFFERED 1
+RUN python -m pip install --upgrade pip
+
 # Install Flask project dependencies
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip3 install -r requirements.txt
 
 ENTRYPOINT ["python3"]
 

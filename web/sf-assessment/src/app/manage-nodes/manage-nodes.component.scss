@@ -1,0 +1,56 @@
+.node-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 10px;
+  }
+  
+  .node {
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .node-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .config-text {
+    font-weight: bold;
+    margin: 0;
+  }
+  
+  .buttons {
+    display: flex;
+    gap: 5px; /* Adjust the gap between buttons */
+  }
+  
+  .answer {
+    margin: 5px 0 0 0; /* Adjust the margin as needed */
+  }
+  
+  :host {
+    width: 70%;
+    height: 100%;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    padding-left: 15%;
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      background: #001b34;
+  
+      img {
+        max-width: 350px;
+        max-height: 150px;
+        width: 90%;
+        object-fit: contain;
+      }
+    }
+}

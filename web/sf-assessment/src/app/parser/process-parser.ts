@@ -4,6 +4,7 @@ import { ChatMessage, ProcessNode, Thread } from "./types";
 import DataStore from "./data-store";
 import { AbstractNode } from "../node/abstract-node";
 import * as dayjs from "dayjs";
+import { nodeNames } from "../node/node-names";
 
 export function hashCode(str: string) {
   let hash = 0,
@@ -79,7 +80,8 @@ export class ProcessParser {
     }
     this.thread.chat[this.thread.chat.length - 1].responseRequest!.response = message.id;
     const content = message.content;
-    this.thread.chat.push(message);
+    this.thread.nodeTemplate[this.thread.chat.length-1].answer = message.content;
+    //this.thread.chat.push(message);
     return new Promise<void>((resolve) => {
       window.setTimeout(() => {
         this.replyPromise?.(content);
@@ -106,6 +108,8 @@ export class ProcessParser {
         id: curNode._id,
         index: this.visitor?.nodesSeen[curNode._id] ?? -1,
       };
+      data.id = `${nodeNames[curNode.node.constructor.name]}_${hashCode(text)}`;
+
     }
 
     this.newMessage(data);
