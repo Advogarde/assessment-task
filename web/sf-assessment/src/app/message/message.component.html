@@ -2,6 +2,10 @@
   <p [innerHTML]="message.content?.value"></p>
 </div>
 <div class="response" *ngIf="message?.responseRequest && last">
+
+<ng-container [ngSwitch]="nodeType">
+  <ng-container *ngSwitchCase="nodeName['PromptNode']"> 
+
   <mat-form-field appearance="outline">
     <mat-label>Answer</mat-label>
     <input matInput [formControl]="control" (keydown.enter)="sendAnswer()">
@@ -10,4 +14,10 @@
     <mat-icon>send</mat-icon>
     <span>Send</span>
   </button>
+</ng-container> 
+  <!-- signature node -->
+  <ng-container *ngSwitchCase="nodeName['SignatureNode']"> 
+    <app-signature-input></app-signature-input>
+    </ng-container> 
+</ng-container> 
 </div>

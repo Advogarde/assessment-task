@@ -6,6 +6,7 @@ export interface ProcessNode {
   node: AbstractNode;
   outputs: (string | null)[];
   start?: boolean;
+  answer: any;
 }
 
 export interface ChatMessage {

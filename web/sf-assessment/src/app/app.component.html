@@ -1,16 +1,25 @@
-<div class="header">
-  <img src="/assets/Logo.svg">
-</div>
-<perfect-scrollbar>
-  <div class="middle">
-    <p>Welcome to the Silberfluss Assessment Center! Your task will be to... ABC</p>
-  </div>
-  <div class="chat">
-    <app-message
-      *ngFor="let message of messages; let i = index"
-      [parser]="parser"
-      [message]="message"
-      [last]="i === messages.length - 1"
-    ></app-message>
-  </div>
-</perfect-scrollbar>
+<ng-container *ngIf="!hasChildRoutes; else elseBlock">
+    <div class="header">
+      <img src="/assets/Logo.svg">
+    </div>
+    
+    <perfect-scrollbar #perfectScrollbar>
+      <div class="middle">
+        <p>Welcome to the Silberfluss Assessment Center! We Are Happy To Help You
+        </p>
+      </div>
+      <div class="chat">
+        <app-message
+         #messageComp
+          *ngFor="let message of messages; let i = index"
+          [parser]="parser"
+          [message]="message"
+          [last]="i === messages.length - 1"
+        ></app-message>
+      </div>
+    </perfect-scrollbar>
+</ng-container>
+
+<ng-template #elseBlock>
+  <router-outlet></router-outlet>
+</ng-template>

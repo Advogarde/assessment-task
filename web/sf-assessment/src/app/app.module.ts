@@ -9,15 +9,23 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
+import { RouterModule, Routes } from '@angular/router';
+import { ManageNodesComponent } from './manage-nodes/manage-nodes.component';
+import { AppRoutingModule } from './app-routing.module';
+import { SignatureInputComponent } from './signature-input/signature-input.component'; // Import the AppRoutingModule
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    MessageComponent
+    MessageComponent,
+    ManageNodesComponent,
+    SignatureInputComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    AppRoutingModule,
     MatInputModule,
     ReactiveFormsModule,
     MatFormFieldModule,
@@ -26,6 +34,7 @@ import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
     PerfectScrollbarModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  exports: [RouterModule, AppRoutingModule]
 })
 export class AppModule { }

@@ -1,0 +1,28 @@
+<div class="header">
+  <img src="../../assets/Logo.svg">
+</div>
+<div class="node-container" *ngFor="let node of nodes; let isLast = last">
+  <div class="node" *ngIf="!isLast">
+      <div class="node-header">
+          <h3 class="config-text">{{ node.config.text }}</h3>
+          <div class="buttons">
+              <button mat-icon-button color="primary" (click)="editNode(node)">
+                  <mat-icon>edit</mat-icon>
+              </button>
+              <button mat-icon-button color="warn" (click)="deleteAnswer(node)">
+                  <mat-icon>delete</mat-icon>
+              </button>
+          </div>
+      </div>
+      <ng-container *ngIf="!node.editing; else editMode">
+          <p class="answer">Answer: {{ node.answers.value }}</p>
+      </ng-container>
+      <ng-template #editMode>
+          <textarea matInput type="text" #editedValue [value]="node.answers.value" ></textarea>
+          <button mat-button color="primary" (click)="saveEdit(node, editedValue.value)">Save</button>
+          <button mat-button color="warn" (click)="cancelEdit(node)">Cancel</button>
+      </ng-template>
+  </div>
+</div>
+<button mat-raised-button (click)="navigateToQuestions()">Go Back To Questions</button>
+
